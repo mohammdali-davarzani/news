@@ -1,0 +1,17 @@
+{% extends "news\base.html" %}
+
+{% block page_title %}
+  ایجاد حساب کاربری 
+{% endblock page_title %}
+
+
+{% block content %}
+
+	<div class="form-group m-5">
+    <form method="POST">
+    			{% csrf_token %}
+    			{{ form.as_p }}
+          <button type="submit" class="save btn btn-success col-12">تایید</button>
+    </form>
+  </div>
+{% endblock content %}

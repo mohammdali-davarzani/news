@@ -1,0 +1,68 @@
+{% extends "news\base.html" %}
+
+{% block page_title %}
+  لیست کاربرها
+{% endblock page_title %}
+
+{% block content %}
+  <div class="container-fluid mt-5">
+    <a href="{% url 'add_user' %}" class="text-decoration-none"><button type="button" class="btn btn-outline-success mb-5 me-5">افزودن کاربر<i class="fas fa-plus-circle me-2"></i></button></a>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">شناسه</th>
+          <th scope="col">نام کاربری</th>
+          <th scope="col">نام کامل</th>
+          <th scope="col">فعال</th>
+          <th scope="col">سوپر یوزر</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        {% for user in users %}
+
+          <tr>
+          <th scope="row">{{user.id}}</th>
+            <td><a href="{% url 'update_user' user.pk %}" class="text-decoration-none">{{user.username}}</a></td>
+
+            {% if user.first_name is not none and user.last_name is not none %}
+
+              <td>{{user.first_name}} {{user.last_name}}</td>
+
+            {% else %}
+
+              <td> </td>
+
+            {% endif %}
+
+
+
+            {% if user.is_active == 1 %}
+
+              <td><i class="fas fa-check-circle text-success"></i></td>
+
+            {% else %}
+
+              <td><i class="fas fa-times-circle text-danger"></i></td>
+
+            {% endif %}
+
+            {% if user.is_superuser == 1 %}
+
+              <td><i class="fas fa-check-circle text-success"></i></td>
+
+            {% else %}
+
+              <td><i class="fas fa-times-circle text-danger"></i></td>
+
+            {% endif %}
+
+
+          </tr>
+
+        {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+{% endblock content %}

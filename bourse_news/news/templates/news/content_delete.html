@@ -1,0 +1,30 @@
+{% extends 'news\base.html' %}
+
+{% block page_title %}
+  حذف خبر
+{% endblock page_title %}
+
+
+{% block content %}
+
+  <div class="container d-flex justify-content-center">
+
+    <div class="form-group float-end ">
+      <form method="POST">
+        {% csrf_token %}
+        <div class="card border-danger m-5 text-center" style="max-width: 18rem;">
+          <div class="card-header bg-danger text-white">حذف خبر</div>
+          <div class="card-body text-danger">
+            <h5 class="card-title mb-2">{{source.source_name}}</h5>
+            <p class="card-text">آیا شما از حذف خبر <strong> {{content.news_title}} </strong>  که در تاریخ <strong> {{content.news_date_time}} </strong>  ایجاد شده است اطمینان دارید؟</p>
+          </div>
+          <button type="submit" class="save btn btn-danger col-sm-3 m-2">حذف</button>
+          <a href="{% url 'news_contents' %}" class="btn btn-secondary col-sm-6 m-2">بازگشت</a>
+        </div>
+    </div>
+
+  </div>
+
+
+
+{% endblock content %}
