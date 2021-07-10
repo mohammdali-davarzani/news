@@ -1,0 +1,51 @@
+{% extends "news\base.html" %}
+
+{% block page_title %}
+  منابع خبری
+{% endblock page_title %}
+
+
+{% block content %}
+
+  <div class="container-fluid">
+
+    <a href="{% url 'add_source' %}" class="text-decoration-none"><button type="button" class="btn btn-outline-success mt-5 me-5">افزودن منبع<i class="fas fa-plus-circle me-2"></i></button></a>
+
+    <div class="row mb-2 mt-5">
+
+      {% for source in sources %}
+
+        <div class="col-md-4 text-center">
+          <div class="card row g-0 border rounded overflow-hidden flex-md-row m-4 shadow-sm">
+            <div class="col p-4 d-flex flex-column position-static">
+              <h3>{{source.source_name}}<span class="badge bg-primary mr-5">{{source.id}}</span></h3>
+              <p class="card-text">{{source.source_url}}</p>
+
+              {% if source.is_active is True %}
+
+                <div class="mt-2">
+                  <span class="badge bg-success">فعال</span>
+                  <a href="{% url 'update_source' source.pk %}"><i class='far fa-edit' style='font-size:24px'></i></a>
+                  <a href="{% url 'delete_source' source.pk %}"><i class="far fa-trash-alt" style='font-size:24px;color:red;'></i></a>
+                </div>
+
+              {% else %}
+
+                <div class="mt-2">
+                  <span class="badge bg-danger">غیرفعال</span>
+                  <a href="{% url 'update_source' source.pk %}"><i class="far fa-edit" style='font-size:24px'></i></a>
+                  <a href="{% url 'delete_source' source.pk %}"><i class="far fa-trash-alt" style='font-size:24px;color:red;'></i></a>
+                </div>
+
+              {% endif %}
+
+            </div>
+          </div>
+        </div>
+
+      {% endfor %}
+
+    </div>
+  </div>
+
+{% endblock content %}

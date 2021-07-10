@@ -1,0 +1,83 @@
+{% extends "news\base.html" %}
+
+{% block page_title %}
+   اخبارها
+{% endblock page_title %}
+
+
+{% block content %}
+
+  <div class="container-fluid">
+
+    <a href="{% url 'add_news' %}" class="text-decoration-none"><button type="button" class="btn btn-outline-success mt-5 me-5">افزودن خبر<i class="fas fa-plus-circle me-2"></i></button></a>
+
+    {% for news in contents %}
+    <div class="card mb-3 m-5 shadow">
+      <div class="row g-0 col-sm-12">
+        <div class="col-sm-3">
+          <img src="{{ news.news_image }}"  width="230" height="200" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-sm-8">
+          <div class="card-body ms-5">
+            <h5 class="card-title d-flex justify-content-center">{{ news.news_title }}</h5>
+            <p class="card-text d-flex justify-content-center">{{ news.news_lead|truncatewords:30 }}</p>
+          </div>
+          <small class="text-muted d-flex justify-content-center">{{ news.news_date_time}}</small>
+        </div>
+        <div class="col-sm-1">
+          <a href="{{ news.news_url }}" class="badge btn btn-primary me-5 ms-5 mb-2" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="منبع" style="font-size:8px">{{ news.news_source}}</i></a>
+          <a href="{% url 'update_content' news.pk %}" class="btn btn-outline-info me-5 ms-5 mb-2" data-bs-toggle="tooltip" data-bs-placement="top" title="ویرایش" style="font-size:15px"><i class="far fa-edit"></i></a>
+          <a href="{% url 'delete_content' news.pk %}" class="btn btn-outline-danger me-5" data-bs-toggle="tooltip" data-bs-placement="top" title="حذف" style="font-size:15px"><i class="fas fa-trash-alt"></i></a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+
+
+
+
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+
+        {% if page_obj.has_previous and page_obj.has_next %}
+
+          <li class="page-item"><a class="page-link" href="?page=1">&laquo; صفحه اول</a></li>
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">قبلی</a></li>
+
+          <span class="current m-2">
+              صفحه {{ page_obj.number }} از {{ page_obj.paginator.num_pages }}
+          </span>
+
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">بعدی</a></li>
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">صفحه آخر &raquo;</a></li>
+
+
+          {% elif page_obj.has_previous and not page_obj.has_next%}
+
+            <li class="page-item"><a class="page-link" href="?page=1">&laquo; صفحه اول</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">قبلی</a></li>
+
+            <span class="current m-2">
+              صفحه {{ page_obj.number }} از {{ page_obj.paginator.num_pages }}
+            </span>
+
+            <li class="page-item disabled"><a class="page-link" href="">بعدی</a></li>
+            <li class="page-item disabled"><a class="page-link" href="">صفحه آخر &raquo;</a></li>
+
+          {% else %}
+            <li class="page-item disabled"><a class="page-link" href="">&laquo; صفحه اول</a></li>
+            <li class="page-item disabled"><a class="page-link disabled" href="">قبلی</a></li>
+            <span class="current m-2">
+              صفحه {{ page_obj.number }} از {{ page_obj.paginator.num_pages }}
+            </span>
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">بعدی</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">صفحه آخر &raquo;</a></li>
+          {% endif %}
+      </ul>
+    </nav>
+
+
+  </div>
+
+
+{% endblock content %}

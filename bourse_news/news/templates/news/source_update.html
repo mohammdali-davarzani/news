@@ -1,0 +1,17 @@
+{% extends "news\base.html" %}
+
+{% block page_title %}
+  بروزرسانی منبع
+{% endblock page_title %}
+
+
+{% block content %}
+
+	<div class="form-group m-5">
+    <form method="POST">
+    			{% csrf_token %}
+    			{{ form.as_p }}
+          <button type="submit" class="save btn btn-info col-12 text-white">ویرایش</button>
+    </form>
+  </div>
+{% endblock content %}
