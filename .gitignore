@@ -1,0 +1,7 @@
+**/**.pyc
+.idea
+**/__pycache__
+.DS_Store
+venv
+bourse_news/bourse_news/settings.py
+calculate_date_time.py
