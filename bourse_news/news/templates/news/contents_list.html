@@ -1,4 +1,4 @@
-{% extends "news\base.html" %}
+{% extends "news/base.html" %}
 
 {% block page_title %}
    اخبارها
@@ -10,6 +10,47 @@
   <div class="container-fluid">
 
     <a href="{% url 'add_news' %}" class="text-decoration-none"><button type="button" class="btn btn-outline-success mt-5 me-5">افزودن خبر<i class="fas fa-plus-circle me-2"></i></button></a>
+
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+
+        {% if page_obj.has_previous and page_obj.has_next %}
+
+          <li class="page-item"><a class="page-link" href="?page=1">&laquo; صفحه اول</a></li>
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">قبلی</a></li>
+
+          <span class="current m-2">
+              صفحه {{ page_obj.number }} از {{ page_obj.paginator.num_pages }}
+          </span>
+
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">بعدی</a></li>
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">صفحه آخر &raquo;</a></li>
+
+
+          {% elif page_obj.has_previous and not page_obj.has_next%}
+
+            <li class="page-item"><a class="page-link" href="?page=1">&laquo; صفحه اول</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">قبلی</a></li>
+
+            <span class="current m-2">
+              صفحه {{ page_obj.number }} از {{ page_obj.paginator.num_pages }}
+            </span>
+
+            <li class="page-item disabled"><a class="page-link" href="">بعدی</a></li>
+            <li class="page-item disabled"><a class="page-link" href="">صفحه آخر &raquo;</a></li>
+
+          {% else %}
+            <li class="page-item disabled"><a class="page-link" href="">&laquo; صفحه اول</a></li>
+            <li class="page-item disabled"><a class="page-link disabled" href="">قبلی</a></li>
+            <span class="current m-2">
+              صفحه {{ page_obj.number }} از {{ page_obj.paginator.num_pages }}
+            </span>
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">بعدی</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">صفحه آخر &raquo;</a></li>
+          {% endif %}
+      </ul>
+    </nav>
+
 
     {% for news in contents %}
     <div class="card mb-3 m-5 shadow">
@@ -32,8 +73,6 @@
       </div>
     </div>
     {% endfor %}
-
-
 
 
     <nav aria-label="Page navigation example">

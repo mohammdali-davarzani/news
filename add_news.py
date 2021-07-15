@@ -12,10 +12,8 @@ from news_scraping.irna import irna_class
 from news_scraping.sena import sena_class
 from news_scraping.boursepress import bourse_press
 
-
-
 def news_scraping():
-        
+
     active_sources = list()
 
     cnx = connect(user="mohammadali", password="M0h@mmadali",
@@ -72,7 +70,7 @@ def news_scraping():
     confirmed_sources = list()
 
 
-    if 7 in active_sources:
+    if 1 in active_sources:
         for accepted in range(len(boursepress[-1])):
             if change_url.unquote(boursepress[-1][accepted]) not in old_news_urls:
                 confirmed_date_times.append(boursepress[0][accepted])
@@ -81,11 +79,11 @@ def news_scraping():
                 confirmed_leads.append(boursepress[3][accepted])
                 confirmed_contents.append(boursepress[4][accepted])
                 confirmed_urls.append(change_url.unquote(boursepress[-1][accepted]))
-                confirmed_sources.append(7)
+                confirmed_sources.append("بورس پرس")
 
 
 
-    if 6 in active_sources:
+    if 2 in active_sources:
         for accepted in range(len(irna[-1])):
             if change_url.unquote(irna[-1][accepted]) not in old_news_urls:
                 confirmed_date_times.append(irna[0][accepted])
@@ -94,10 +92,10 @@ def news_scraping():
                 confirmed_leads.append(irna[3][accepted])
                 confirmed_contents.append(irna[4][accepted])
                 confirmed_urls.append(change_url.unquote(irna[-1][accepted]))
-                confirmed_sources.append(6)
+                confirmed_sources.append("ایرنا")
 
 
-    if 5 in active_sources:
+    if 3 in active_sources:
         for accepted in range(len(sena[-1])):
             if change_url.unquote(sena[-1][accepted]) not in old_news_urls:
                 confirmed_date_times.append(sena[0][accepted])
@@ -106,12 +104,12 @@ def news_scraping():
                 confirmed_leads.append(sena[3][accepted])
                 confirmed_contents.append(sena[4][accepted])
                 confirmed_urls.append(change_url.unquote(sena[-1][accepted]))
-                confirmed_sources.append(5)
+                confirmed_sources.append("سنا")
 
 
     cnx = connect(user='mohammadali', password='M0h@mmadali',
                         host="localhost", database="bourse_news")
-            
+
     for news in range(len(confirmed_titles)):
 
         cursor = cnx.cursor()
@@ -134,8 +132,6 @@ schedule.every(5).minutes.do(news_scraping)
 
 
 while True:
-    
+
     schedule.run_pending()
     time.sleep(1)
-    
-

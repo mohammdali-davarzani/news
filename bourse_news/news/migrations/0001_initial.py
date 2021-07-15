@@ -142,14 +142,18 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='NewsContents',
             fields=[
-                ('news_id', models.AutoField(primary_key=True, serialize=False)),
-                ('news_url', models.URLField(blank=True, max_length=2000, null=True)),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 # ('news_date_time', jmodels.jDateTimeField(blank=True, null=True)),
-                ('news_date_time', models.CharField(max_length=100, blank=True, null=True)),
-                ('news_title', models.CharField(blank=True, max_length=1000, null=True)),
-                ('news_lead', models.CharField(blank=True, max_length=5000, null=True)),
-                ('news_image', models.URLField(blank=True, max_length=1000, null=True)),
+                ('news_date_time', models.CharField(max_length=300)),
+                ('news_url', models.URLField(max_length=2038)),
+                ('news_title', models.CharField(max_length=150)),
+                ('news_image', models.URLField(max_length=2038, blank=True, null=True)),
+                ('news_lead', models.CharField(max_length=300)),
                 ('news_content', HTMLField(blank=True, null=True)),
+                ('is_duplicate', models.BooleanField(blank=True, null=True, default=False)),
+                ('is_disable', models.BooleanField(blank=True, null=True, default=False)),
+                ('news_source', models.CharField(max_length=45, blank=True, null=True)),
+
             ],
             options={
                 'db_table': 'news_contents',
@@ -160,9 +164,9 @@ class Migration(migrations.Migration):
             name='NewsSources',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('source_name', models.CharField(blank=True, max_length=500, null=True)),
-                ('source_url', models.URLField(blank=True, max_length=20000, null=True)),
-                ('is_active', models.BooleanField(blank=True, default=False, null=True)),
+                ('source_name', models.CharField(max_length=45)),
+                ('source_url', models.URLField(max_length=2038)),
+                ('is_active' , models.BooleanField(blank=True, null=True, default=False)),
             ],
             options={
                 'db_table': 'news_sources',
