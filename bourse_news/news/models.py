@@ -127,7 +127,7 @@ class DjangoSession(models.Model):
 
 
 class NewsContents(models.Model):
-    news_source = models.ForeignKey('NewsSources', models.CASCADE, db_column='news_source', blank=True, null=True)
+    news_source = models.CharField(max_length=45)
     news_url = models.URLField(max_length=2038)
     # news_date_time = jmodels.jDateTimeField(blank=True, null=True)
     news_date_time = models.CharField(max_length=300, blank=True, null=True)

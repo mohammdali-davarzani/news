@@ -49,7 +49,7 @@ class AddNews_Form(forms.ModelForm):
 
 
         widgets = {
-			'news_source': forms.Select(attrs={'class': 'form-select'}),
+			'news_source':forms.TextInput(attrs={'class':'form-control'}),
 			'news_url': forms.URLInput(attrs={'class': 'form-control'}),
             'news_title':forms.TextInput(attrs={'class':'form-control'}),
             'news_image': forms.URLInput(attrs={'class': 'form-control'}),
@@ -78,7 +78,7 @@ class UpdateNews_Form(forms.ModelForm):
 
 
         widgets = {
-			'news_source': forms.Select(attrs={'class': 'form-select'}),
+			'news_source':forms.TextInput(attrs={'class':'form-control'}),
 			'news_url': forms.URLInput(attrs={'class': 'form-control'}),
             'news_title':forms.TextInput(attrs={'class':'form-control'}),
             'news_image': forms.URLInput(attrs={'class': 'form-control'}),

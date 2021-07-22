@@ -141,6 +141,7 @@ class Migration(migrations.Migration):
             name='NewsContents',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('news_source', models.CharField(max_length=45)),
                 ('news_url', models.URLField(max_length=2038)),
                 ('news_date_time', models.CharField(blank=True, max_length=300, null=True)),
                 ('news_title', models.CharField(max_length=150)),
