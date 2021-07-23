@@ -13,6 +13,7 @@ from elasticsearch import Elasticsearch
 from news_scraping.irna import irna_class
 from news_scraping.sena import sena_class
 from news_scraping.boursepress import bourse_press
+from news_scraping.eghtesadnews import eghtesad_news
 
 
 
@@ -60,6 +61,7 @@ for old_url in test_news_urls:
 boursepress = bourse_press.output()
 irna = irna_class.output()
 sena = sena_class.output()
+eghtesadnews = eghtesad_news.output()
 
 
 confirmed_date_times = list()
@@ -106,6 +108,19 @@ if 3 in active_sources:
             confirmed_contents.append(sena[4][accepted])
             confirmed_urls.append(change_url.unquote(sena[-1][accepted]))
             confirmed_sources.append("سنا")
+
+
+if 4 in active_sources:
+    for accepted in range(len(eghtesadnews[-1])):
+        if change_url.unquote(eghtesadnews[-1][accepted]) not in old_news_urls:
+            confirmed_date_times.append(eghtesadnews[0][accepted])
+            confirmed_titles.append(eghtesadnews[1][accepted])
+            confirmed_images.append(eghtesadnews[2][accepted])
+            confirmed_leads.append(eghtesadnews[3][accepted])
+            confirmed_contents.append(eghtesadnews[4][accepted])
+            confirmed_urls.append(change_url.unquote(eghtesadnews[-1][accepted]))
+            confirmed_sources.append("اقتصاد نیوز")
+
 
 
 for i in range(len(confirmed_titles)):
