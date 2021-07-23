@@ -13,7 +13,6 @@ from news_scraping.sena import sena_class
 from news_scraping.boursepress import bourse_press
 
 
-
 active_sources = list()
 
 cnx = connect(user="mohammadali", password="M0h@mmadali",
@@ -49,7 +48,7 @@ query = ("SELECT news_url FROM news_contents")
 cursor.execute(query)
 
 for news_url in cursor:
-    old_news_urls.append(re.sub(r"\s+", ' ', change_url.unquote(news_url[0])).strip())
+    old_news_urls.append(change_url.unquote(news_url[0]))
 
 cursor.close()
 

@@ -135,8 +135,8 @@ class NewsContents(models.Model):
     news_image = models.URLField(max_length=2038, blank=True, null=True)
     news_lead = models.CharField(max_length=300)
     news_content = models.TextField(blank=True, null=True)
-    is_duplicate = models.BooleanField(blank=True, null=True)
-    is_disable = models.BooleanField(blank=True, null=True)
+    is_duplicate = models.BooleanField(blank=True, null=True, default=False)
+    is_disable = models.BooleanField(blank=True, null=True, default=False)
 
     class Meta:
         managed = False

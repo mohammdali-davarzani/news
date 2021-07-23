@@ -25,7 +25,7 @@ class NewsList(ListAPIView):
     queryset = NewsContents.objects.filter(
             Q(is_duplicate=False) &
             Q(is_disable=False)
-        )
+        ).order_by("-id")
     serializer_class = NewsSerializer
     pagination_class = SmallResultsSetPagination
 
@@ -36,10 +36,6 @@ class NewsList(ListAPIView):
         is_search_lookups = False
         is_filter_lookups = False
 
-        output = queryset.filter(
-                Q(is_duplicate=False) &
-                Q(is_disable=False)
-            )
 
         for name, value in NewsContents.searching_lookups:
             param = self.request.GET.get(value)
@@ -68,7 +64,7 @@ class NewsList(ListAPIView):
                         chain(search_query, filter_query)
                     )
 
-            return queryset_output
+            return queryset_output[::-1]
 
         elif is_search_lookups == True and is_filter_lookups == False:
             phrase = search_lookups[0]
@@ -80,7 +76,7 @@ class NewsList(ListAPIView):
 
             queryset_output = search_query
 
-            return queryset_output
+            return queryset_output[::-1]
 
         elif is_search_lookups == False and is_filter_lookups == True:
 
@@ -88,7 +84,7 @@ class NewsList(ListAPIView):
 
             queryset_output = filter_query
 
-            return queryset_output
+            return queryset_output[::-1]
 
 
         else :
@@ -96,6 +92,6 @@ class NewsList(ListAPIView):
             queryset_output = queryset.filter(
                     Q(is_duplicate=False) &
                     Q(is_disable=False)
-                )
+                ).order_by("-id")
 
             return queryset_output

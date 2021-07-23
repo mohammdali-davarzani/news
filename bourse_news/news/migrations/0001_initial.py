@@ -148,8 +148,8 @@ class Migration(migrations.Migration):
                 ('news_image', models.URLField(blank=True, max_length=2038, null=True)),
                 ('news_lead', models.CharField(max_length=300)),
                 ('news_content', tinymce.models.HTMLField(blank=True, null=True)),
-                ('is_duplicate', models.BooleanField(blank=True, null=True)),
-                ('is_disable', models.BooleanField(blank=True, null=True)),
+                ('is_duplicate', models.BooleanField(blank=True, null=True, default=False)),
+                ('is_disable', models.BooleanField(blank=True, null=True, default=False)),
             ],
             options={
                 'db_table': 'news_contents',
