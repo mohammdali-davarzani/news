@@ -6,7 +6,9 @@ import schedule
 from bs4 import BeautifulSoup
 from datetime import datetime
 import urllib.parse as change_url
+from mysql.connector import connect
 from elasticsearch import Elasticsearch
+
 
 from news_scraping.irna import irna_class
 from news_scraping.sena import sena_class
@@ -15,19 +17,26 @@ from news_scraping.boursepress import bourse_press
 
 
 es = Elasticsearch()
-
 active_sources = list()
-source_id_take = es.search(index="news_sources", body=
-    {
-    "query": {"match": {
-        "is_active": True
-    }}
-    }
-)
 
-if len(source_id_take['hits']['hits']) > 0:
-    for hit in source_id_take['hits']['hits']:
-        active_sources.append(int(hit["_id"]))
+cnx = connect(user="mohammadali", password="M0h@mmadali",
+                    host="localhost", database="bourse_news")
+
+cursor = cnx.cursor()
+
+query = ("SELECT id, is_active FROM news_sources")
+
+cursor.execute(query)
+
+for id, is_active in cursor:
+
+    if is_active == 1:
+
+        active_sources.append(id)
+
+cursor.close()
+
+cnx.close()
 
 test_news_urls = list()
 
