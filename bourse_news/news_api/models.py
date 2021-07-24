@@ -127,28 +127,40 @@ class DjangoSession(models.Model):
 
 
 class NewsContents(models.Model):
-    news_id = models.AutoField(primary_key=True)
-    news_source = models.ForeignKey('NewsSources', models.DO_NOTHING, db_column='news_source', blank=True, null=True)
-    news_url = models.URLField(max_length=2000, blank=True, null=True)
+    news_source = models.CharField(max_length=45)
+    news_url = models.URLField(max_length=2038)
     # news_date_time = jmodels.jDateTimeField(blank=True, null=True)
-    news_date_time = models.CharField(max_length=100, blank=True, null=True)
-    news_title = models.CharField(max_length=1000, blank=True, null=True)
-    news_lead = models.CharField(max_length=5000, blank=True, null=True)
-    news_image = models.URLField(max_length=1000, blank=True, null=True)
-    news_content = HTMLField(blank=True, null=True)
+    news_date_time = models.CharField(max_length=300, blank=True, null=True)
+    news_title = models.CharField(max_length=150)
+    news_image = models.URLField(max_length=2038, blank=True, null=True)
+    news_lead = models.CharField(max_length=300)
+    news_content = models.TextField(blank=True, null=True)
+    is_duplicate = models.BooleanField(blank=True, null=True, default=False)
+    is_disable = models.BooleanField(blank=True, null=True, default=False)
 
     class Meta:
         managed = False
         db_table = 'news_contents'
 
     def __str__(self):
-        return self.news_title
+                return self.news_title
+
+    searching_lookups = [
+        ('news__icontains', 'search'),
+    ]
+
+    filtering_lookups = [
+        ('news_title__icontains', 'title',),
+        ('news_source__icontains', 'source'),
+        ('news_lead__icontains', 'lead'),
+        ('news_content__icontains', 'content'),
+    ]
 
 
 class NewsSources(models.Model):
-    source_name = models.CharField(max_length=500, blank=True, null=True)
-    source_url = models.URLField(max_length=20000, blank=True, null=True)
-    is_active = models.BooleanField(blank=True, null=True, default=False)
+    source_name = models.CharField(unique=True, max_length=45)
+    source_url = models.URLField(unique=True, max_length=45)
+    is_active = models.BooleanField(blank=True, null=True)
 
     class Meta:
         managed = False

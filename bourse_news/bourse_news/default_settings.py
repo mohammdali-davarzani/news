@@ -29,6 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
+
 # Application definition
 
 DJANGO_DEFAULT_APPS = [
@@ -45,6 +46,7 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'jalali_date',
     'tinymce',
+    'django_elasticsearch_dsl'
 ]
 
 LOCAL_APPS = [
@@ -142,6 +144,13 @@ JALALI_DATE_DEFAULTS = {
     },
 }
 
+
+# define elasticsearch server details
+ELASTICSEARCH_DSL={
+    'default': {
+        'hosts': 'localhost:9200'
+    },
+}
 
 
 # Internationalization

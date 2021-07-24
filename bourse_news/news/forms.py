@@ -45,16 +45,18 @@ class AddNews_Form(forms.ModelForm):
 
         model = NewsContents
         fields = ("news_source", "news_url", "news_date_time", "news_title",
-                    "news_lead", "news_image", "news_content")
+                    "news_lead", "news_image", "news_content", "is_duplicate", "is_disable")
 
 
         widgets = {
-			'news_source': forms.Select(attrs={'class': 'form-select'}),
+			'news_source':forms.TextInput(attrs={'class':'form-control'}),
 			'news_url': forms.URLInput(attrs={'class': 'form-control'}),
             'news_title':forms.TextInput(attrs={'class':'form-control'}),
-            'news_lead':forms.TextInput(attrs={'class':'form-control'}),
             'news_image': forms.URLInput(attrs={'class': 'form-control'}),
+            'news_lead':forms.TextInput(attrs={'class':'form-control'}),
             'news_content': TinyMCE(mce_attrs={'class': 'form-control'}),
+            'is_duplicate': forms.CheckboxInput(attrs={'class':'form-check-input'}),
+            'is_disable': forms.CheckboxInput(attrs={'class':'form-check-input'})
 		}
 
 
@@ -71,17 +73,19 @@ class UpdateNews_Form(forms.ModelForm):
     class Meta:
 
         model = NewsContents
-        fields = ("news_source", "news_url", "news_title",
-                    "news_lead", "news_image", "news_content")
+        fields = ("news_source", "news_url", "news_date_time", "news_title",
+                    "news_lead", "news_image", "news_content", "is_duplicate", "is_disable")
 
 
         widgets = {
-			'news_source': forms.Select(attrs={'class': 'form-select'}),
+			'news_source':forms.TextInput(attrs={'class':'form-control'}),
 			'news_url': forms.URLInput(attrs={'class': 'form-control'}),
             'news_title':forms.TextInput(attrs={'class':'form-control'}),
-            'news_lead':forms.TextInput(attrs={'class':'form-control'}),
             'news_image': forms.URLInput(attrs={'class': 'form-control'}),
+            'news_lead':forms.TextInput(attrs={'class':'form-control'}),
             'news_content': TinyMCE(mce_attrs={'class': 'form-control'}),
+            'is_duplicate': forms.CheckboxInput(attrs={'class':'form-check-input'}),
+            'is_disable': forms.CheckboxInput(attrs={'class':'form-check-input'})
 		}
 
 
